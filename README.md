@@ -1,56 +1,61 @@
-Airflow Diabetes Prediction Lab — Standalone Deployment on VM
-Overview
+# Airflow Diabetes Prediction Lab — Standalone Deployment on VM
 
-This lab demonstrates the setup, configuration, and execution of Apache Airflow in a Standalone environment on a Virtual Machine (VM).
-The workflow automates a machine learning pipeline for predicting diabetes outcomes using the Pima Indians Diabetes dataset and a Random Forest classifier.
+## Overview
+
+This lab demonstrates the setup, configuration, and execution of **Apache Airflow** in a **Standalone environment** on a Virtual Machine (VM).  
+The workflow automates a **machine learning pipeline** for predicting diabetes outcomes using the **Pima Indians Diabetes dataset** and a **Random Forest classifier**.
 
 The project follows the standard Airflow DAG structure, incorporating data loading, preprocessing, model training, and email notification upon successful completion.
 
-Key Modifications from the Original Template
+---
+
+## Key Modifications from the Original Template
 
 Compared to the base lab structure provided in the course repository, the following modifications were implemented:
 
-Execution Mode: Used airflow standalone instead of running separate webserver and scheduler instances in multiple terminals.
+- **Execution Mode:** Used `airflow standalone` instead of running separate webserver and scheduler instances in multiple terminals.  
+- **Dataset Change:** Replaced the sample dataset with the **Pima Indians Diabetes dataset** (`diabetes.csv`) containing 768 samples and 8 features.  
+- **Model Change:** Implemented a **Random Forest Classifier** with 100 estimators and a maximum depth of 10, replacing the placeholder model used in the original template.  
+- **Pipeline Customization:** Defined a five-step DAG to automate data loading, preprocessing, splitting, model training, and email notification.  
+- **Email Notification:** Added a Python-based email function that triggers upon successful DAG completion (`success_email.py`).  
+- **Simplified Deployment:** Used Airflow’s standalone mode to manage all services within a single process for easier execution and testing.
 
-Dataset Change: Replaced the sample dataset with the Pima Indians Diabetes dataset (diabetes.csv) containing 768 samples and 8 features.
+---
 
-Model Change: Implemented a Random Forest Classifier with 100 estimators and a maximum depth of 10, replacing the placeholder model used in the original template.
+## Environment Setup (Standalone Airflow on VM)
 
-Pipeline Customization: Defined a five-step DAG to automate data loading, preprocessing, splitting, model training, and email notification.
+### 1. Create and Configure a VM
 
-Email Notification: Added a Python-based email function that triggers upon successful DAG completion (success_email.py).
+- Launch a virtual machine (minimum **2 vCPUs**, **4 GB RAM**).  
+- Allow inbound connections on port **8080** to access the Airflow web interface.
 
-Simplified Deployment: Used Airflow’s standalone mode to manage all services within a single process for easier execution and testing.
+### 2. Install Dependencies
 
-Environment Setup (Standalone Airflow on VM)
-1. Create and Configure a VM
-
-Launch a virtual machine (minimum 2 vCPUs, 4 GB RAM).
-
-Allow inbound connections on port 8080 to access the Airflow web interface.
-
-2. Install Dependencies
+```bash
 sudo apt update
 sudo apt install python3-pip python3-venv -y
-
 3. Set Up Virtual Environment
+bash
+Copy code
 python3 -m venv airflow_venv
 source airflow_venv/bin/activate
 pip install apache-airflow
-
 4. Initialize and Start Airflow in Standalone Mode
+bash
+Copy code
 airflow standalone
-
-
 This command initializes the database, creates a default admin user, and starts both the webserver and scheduler automatically.
 Access the web interface at:
 http://<VM-IP>:8080
 
 Admin credentials are stored in:
 
+bash
+Copy code
 ~/airflow/standalone_admin_password.txt
-
 Project Folder Structure
+graphql
+Copy code
 airflow-diabetes-lab/
 │
 ├── dags/
@@ -70,9 +75,7 @@ airflow-diabetes-lab/
 │
 ├── requirements.txt                 # Dependencies
 └── README.md                        # Project documentation
-
 DAG Workflow Description
-
 The Directed Acyclic Graph (DAG) in this lab consists of five Python-based tasks that execute sequentially to complete the machine learning workflow.
 
 The process begins with load_data_task, which reads the diabetes dataset into memory and verifies its shape and structure.
@@ -84,27 +87,25 @@ The build_save_model_task then trains a Random Forest classifier using the train
 Finally, the task_send_email serves as a notification task that triggers only upon successful completion of all previous tasks, confirming that the workflow ran end-to-end without errors.
 
 Execution Process
-
 Place the project folder (airflow-diabetes-lab/) inside your VM’s Airflow directory (~/airflow).
 
 Run Airflow in standalone mode:
 
+bash
+Copy code
 airflow standalone
-
-
 Access the web interface at http://<VM-IP>:8080.
 
 Locate and enable the DAG named:
 
+nginx
+Copy code
 Airflow_Lab3_Diabetes_RandomForest
-
-
 Trigger the DAG manually or schedule it.
 
 Monitor execution using the Graph View or Grid View.
 
 Results Summary
-
 All five tasks executed successfully in sequence.
 
 The trained Random Forest model achieved an accuracy of approximately 0.74.
@@ -116,24 +117,30 @@ Email notification successfully triggered after DAG completion.
 Visual proof of execution and logs are available in the screenshots/ folder.
 
 Requirements
-
 Install dependencies with:
 
+bash
+Copy code
 pip install -r requirements.txt
-
-
 Typical contents include:
 
+Copy code
 apache-airflow
 pandas
 scikit-learn
 joblib
-
 Lab Submission Details
-
 Submitted Lab: Airflow Diabetes Prediction using Random Forest
 Execution Mode: Airflow Standalone on VM
 Submission Format: GitHub Repository
 Repository Link: https://github.com/sharonjennifer/airflow-diabetes-lab
+Author: Jennifer Sharon
 
-Author: Sharon Jennifer Justin Devaraj
+yaml
+Copy code
+
+---
+
+This Markdown version will render beautifully on GitHub — with all headings, code blocks, and lists properly formatted.  
+
+Would you like me to add a short “**References and Resources**” section at the bottom (for completeness
