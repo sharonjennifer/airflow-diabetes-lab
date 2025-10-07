@@ -30,3 +30,6 @@ dags/*.pyo
 # System / editor files
 .DS_Store
 *.swp
+airflow_venv/
+airflow_file_list.txt
+README.md.save
