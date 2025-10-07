@@ -1,0 +1,32 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Jupyter and notebooks
+.ipynb_checkpoints/
+
+# Virtual environment folders
+env/
+venv/
+.venv/
+
+# Airflow-specific directories
+airflow.db
+airflow-webserver.pid
+logs/
+dags/__pycache__/
+dags/*.pyc
+dags/*.pyo
+
+# Model artifacts and data
+*.pkl
+*.csv
+*.db
+*.sqlite
+
+# System / editor files
+.DS_Store
+*.swp
